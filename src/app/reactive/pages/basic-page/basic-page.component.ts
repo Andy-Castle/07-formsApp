@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,12 +6,18 @@ import {
   Validators,
 } from '@angular/forms';
 
+const rtx5090 = {
+  name: 'RTX 5090',
+  price: 2500,
+  inStorage: 12,
+};
+
 @Component({
   selector: 'app-basic-page',
   templateUrl: './basic-page.component.html',
   styles: [],
 })
-export class BasicPageComponent {
+export class BasicPageComponent implements OnInit {
   // Este es una forma de hacer formularios o los campos
   // public myForm: FormGroup = new FormGroup({
   //   name: new FormControl('', []),
@@ -33,5 +39,14 @@ export class BasicPageComponent {
     if (this.myForm.invalid) return;
 
     console.log(this.myForm.value);
+
+    //aqui es como re-establecer y establer un valor
+    this.myForm.reset({ price: 0, inStorage: 0 });
+  }
+
+  ngOnInit(): void {
+    //Esto es cuando recien se carga el form, este carga los datos
+    //de la variable, osea esto podria venir del backend
+    this.myForm.reset(rtx5090);
   }
 }
